@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Our Chefs:</h1>
+
+  {% if cook_list %}
+    <ul>
+      {% for cook in cook_list %}
+        <li>{{ cook.position }}: {{ cook.first_name }} {{ cook.last_name }} ({{ cook.username }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p> Thera are no dish type</p>
+  {% endif %}
+{% endblock %}

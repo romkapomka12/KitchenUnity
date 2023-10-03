@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Dish Type</h1>
+
+  {% if dish_type_list %}
+    <ul>
+      {% for dish_list in dish_type_list %}
+        <li>{{ dish_type_list }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p> Thera are no dish type</p>
+  {% endif %}
+{% endblock %}
