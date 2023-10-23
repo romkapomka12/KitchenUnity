@@ -24,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tt$e8q=-cedom*cg7hnlus_!#!n&#1_sfcprm-s(=fol+trstm"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-tt$e8q=-cedom*cg7hnlus_!#!n&#1_sfcprm-s(=fol+trstm")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -139,7 +139,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "service.Cook"
 
-LOGIN_REDIRECT_URL = "/service/"
+LOGIN_REDIRECT_URL = "/"
 
 INTERNAL_IPS = [
     "127.0.0.1",
