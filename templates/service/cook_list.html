@@ -1,15 +1,48 @@
-{% extends "base.html" %}
+{% extends "layouts\base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Our Chefs:</h1>
-
+<head>
+  <h1>Our Chefs:<a href="{% url 'service:cook_create' %}" class="btn btn-primary link-to-page" style="float: right">Add a shef</a></h1>
+  <form method="get" action="" class="form-inline" style="float: left; margin-right: 30px">
+  {{ search_form|crispy }}
+  <input class="btn btn" type="submit" value="🔎">
+  </form>
   {% if cook_list %}
-    <ul>
-      {% for cook in cook_list %}
-        <li>{{ cook.position }}: {{ cook.first_name }} {{ cook.last_name }} ({{ cook.username }})</li>
-      {% endfor %}
-    </ul>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>POSITION</th>
+        <th>FIRST NAME</th>
+        <th>LAST NAME</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+      </tr>
+      <tr>
+        {% for cook in cook_list %}
+          <td>
+            <a href="{% url 'service:cook_detail' pk=cook.id %} ">{{ cook.id }}</a>
+          </td>
+          <td>
+            {{ cook.position }}
+          </td>
+          <td>
+            {{ cook.first_name }}
+          </td>
+          <td>
+            {{ cook.last_name }}
+          </td>
+          <td>
+            <a href="{% url 'service:cook_update' pk=cook.id %}">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'service:cook_delete' pk=cook.id %} ">Delete</a>
+          </td>
+          </tr>
+        {% endfor %}
+    </table>
   {% else %}
     <p> Thera are no dish type</p>
   {% endif %}
+  </head>
 {% endblock %}

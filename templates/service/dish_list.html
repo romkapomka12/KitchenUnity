@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "layouts\base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Our Dish:<a href="{% url 'service:dish_create' %}" style="float: right" class="btn btn-primary link-to-page"
+                 >Add new dish</a></h1>
+  <form method="get" action="" class="form-inline" style="float: left; margin-right: 30px">
+  {{ search_form|crispy }}
+  <input class="btn btn" type="submit" value="🔎">
+  </form>
+  {% if dish_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>TYPE</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+      </tr>
+      <tr>
+        {% for dish in dish_list %}
+          <td>
+            {{ dish.id }}
+          </td>
+          <td>
+            <a href="{% url 'service:dish_detail' pk=dish.id %}">
+              {{ dish.name }}
+              {% for cook in dish.cooks.all %}
+                {% if cook.id == user.id %}
+                  (Me)
+                {% endif %}
+              {% endfor %}
+            </a>
+          </td>
+          <td>
+            {{ dish.dish_type }}
+          </td>
+          <td>
+            <a href="{% url 'service:dish_update' pk=dish.id %} ">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'service:dish_delete' pk=dish.id %} ">Delete</a>
+          </td>
+          </tr>
+        {% endfor %}
+    </table>
+  {% else %}
+    <p> Thera are no dish </p>
+  {% endif %}
+{% endblock %}

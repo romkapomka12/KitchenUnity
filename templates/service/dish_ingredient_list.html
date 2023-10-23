@@ -1,0 +1,46 @@
+{% extends "layouts\base.html" %}
+{% block content %}
+  <h1>Ingredients:
+    {% if object %}
+      <a href="{% url 'service:dish_ingredient_create' object.pk %}"
+         style="float: right" class="btn btn-primary link-to-page">Add new ingredient
+    {% endif %}
+    </a>
+  </h1>
+  {% if dish_ingredient_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Unit</th>
+        <th>Quantity</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      <tr>
+        {% for ingredient in dish_ingredient_list %}
+          <td>
+            {{ ingredient.id }}
+          </td>
+          <td>
+            {{ ingredient.name }}
+          </td>
+          <td>
+            {{ ingredient.quantity }}
+          </td>
+          <td>
+            {{ ingredient.unit }}
+          </td>
+          <td>
+            <a href="{% url 'service:dish_ingredient_update' dish_pk=object.pk pk=ingredient.id %}">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'service:dish_ingredient_delete' dish_pk=object.pk pk=ingredient.id %} ">Delete</a>
+          </td>
+          </tr>
+        {% endfor %}
+    </table>
+  {% else %}
+    <p> Thera are no ingredients</p>
+  {% endif %}
+{% endblock %}

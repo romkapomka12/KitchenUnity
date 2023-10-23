@@ -1,14 +1,34 @@
-{% extends "base.html" %}
+{% extends "layouts\base.html" %}
 
 {% block content %}
-  <h1>Dish Type</h1>
+  <h1>Dish Type:<a href="{% url 'service:dish_type_create' %}" style="float: right" class="btn btn-primary link-to-page"
+                   style="float: right">Add new dish type</a></h1></h1>
 
   {% if dish_type_list %}
-    <ul>
-      {% for dish_list in dish_type_list %}
-        <li>{{ dish_type_list }}</li>
-      {% endfor %}
-    </ul>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+      </tr>
+      <tr>
+        {% for dish_type in dish_type_list %}
+          <td>
+            {{ dish_type.id }}
+          </td>
+          <td>
+            {{ dish_type.name }}
+          </td>
+          <td>
+            <a href="{% url 'service:dish_type_update' pk=dish_type.id %}">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'service:dish_type_delete' pk=dish_type.id %} ">Delete</a>
+          </td>
+          </tr>
+        {% endfor %}
+    </table>
   {% else %}
     <p> Thera are no dish type</p>
   {% endif %}
