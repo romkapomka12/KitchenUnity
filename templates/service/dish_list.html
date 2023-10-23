@@ -2,49 +2,65 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Our Dish:<a href="{% url 'service:dish_create' %}" style="float: right" class="btn btn-primary link-to-page"
-                 >Add new dish</a></h1>
-  <form method="get" action="" class="form-inline" style="float: left; margin-right: 30px">
+<h1>Our Dish:<a href="{% url 'service:dish_create' %}" style="float: right" class="btn btn-primary link-to-page"
+>Add new dish</a></h1>
+<form method="get" action="" class="form-inline" style="float: left; margin-right: 30px">
   {{ search_form|crispy }}
   <input class="btn btn" type="submit" value="🔎">
-  </form>
-  {% if dish_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>NAME</th>
-        <th>TYPE</th>
-        <th>UPDATE</th>
-        <th>DELETE</th>
-      </tr>
-      <tr>
-        {% for dish in dish_list %}
-          <td>
-            {{ dish.id }}
-          </td>
-          <td>
-            <a href="{% url 'service:dish_detail' pk=dish.id %}">
-              {{ dish.name }}
-              {% for cook in dish.cooks.all %}
-                {% if cook.id == user.id %}
-                  (Me)
-                {% endif %}
-              {% endfor %}
-            </a>
-          </td>
-          <td>
-            {{ dish.dish_type }}
-          </td>
-          <td>
-            <a href="{% url 'service:dish_update' pk=dish.id %} ">Update</a>
-          </td>
-          <td>
-            <a href="{% url 'service:dish_delete' pk=dish.id %} ">Delete</a>
-          </td>
-          </tr>
+</form>
+{% if dish_list %}
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>NAME</th>
+    <th>TYPE</th>
+    <th>UPDATE</th>
+    <th>DELETE</th>
+  </tr>
+  <tr>
+    {% for dish in dish_list %}
+    <td>
+      {{ dish.id }}
+    </td>
+    <td>
+      <a href="{% url 'service:dish_detail' pk=dish.id %}">
+        {{ dish.name }}
+        {% for cook in dish.cooks.all %}
+        {% if cook.id == user.id %}
+        (Me)
+        {% endif %}
         {% endfor %}
-    </table>
-  {% else %}
-    <p> Thera are no dish </p>
+      </a>
+    </td>
+    <td>
+      {{ dish.dish_type }}
+    </td>
+    <td>
+      <a href="{% url 'service:dish_update' pk=dish.id %} ">Update</a>
+    </td>
+    <td>
+      <a href="{% url 'service:dish_delete' pk=dish.id %} ">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p> Thera are no dish </p>
+{% endif %}
+{% load query_transform %}
+{% if is_paginated %}
+<ul class="pagination">
+  {% if page_obj.has_previous %}
+  <a class="page-link" href="?page={{ page_obj.previous_page_number }}">prev</a>
+  </li>
   {% endif %}
+  <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }} </span>
+  </li>
+  {% if page_obj.has_next %}
+  <a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+  </li>
+  {% endif %}
+</ul>
+{% endif %}
+
 {% endblock %}

@@ -3,46 +3,62 @@
 
 {% block content %}
 <head>
-  <h1>Our Chefs:<a href="{% url 'service:cook_create' %}" class="btn btn-primary link-to-page" style="float: right">Add a shef</a></h1>
+  <h1>Our Chefs:<a href="{% url 'service:cook_create' %}" class="btn btn-primary link-to-page" style="float: right">Add
+    a shef</a></h1>
   <form method="get" action="" class="form-inline" style="float: left; margin-right: 30px">
-  {{ search_form|crispy }}
-  <input class="btn btn" type="submit" value="🔎">
+    {{ search_form|crispy }}
+    <input class="btn btn" type="submit" value="🔎">
   </form>
   {% if cook_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>POSITION</th>
-        <th>FIRST NAME</th>
-        <th>LAST NAME</th>
-        <th>UPDATE</th>
-        <th>DELETE</th>
-      </tr>
-      <tr>
-        {% for cook in cook_list %}
-          <td>
-            <a href="{% url 'service:cook_detail' pk=cook.id %} ">{{ cook.id }}</a>
-          </td>
-          <td>
-            {{ cook.position }}
-          </td>
-          <td>
-            {{ cook.first_name }}
-          </td>
-          <td>
-            {{ cook.last_name }}
-          </td>
-          <td>
-            <a href="{% url 'service:cook_update' pk=cook.id %}">Update</a>
-          </td>
-          <td>
-            <a href="{% url 'service:cook_delete' pk=cook.id %} ">Delete</a>
-          </td>
-          </tr>
-        {% endfor %}
-    </table>
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>POSITION</th>
+      <th>FIRST NAME</th>
+      <th>LAST NAME</th>
+      <th>UPDATE</th>
+      <th>DELETE</th>
+    </tr>
+    <tr>
+      {% for cook in cook_list %}
+      <td>
+        <a href="{% url 'service:cook_detail' pk=cook.id %} ">{{ cook.id }}</a>
+      </td>
+      <td>
+        {{ cook.position }}
+      </td>
+      <td>
+        {{ cook.first_name }}
+      </td>
+      <td>
+        {{ cook.last_name }}
+      </td>
+      <td>
+        <a href="{% url 'service:cook_update' pk=cook.id %}">Update</a>
+      </td>
+      <td>
+        <a href="{% url 'service:cook_delete' pk=cook.id %} ">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
   {% else %}
-    <p> Thera are no dish type</p>
+  <p> Thera are no dish type</p>
   {% endif %}
-  </head>
+  {% load query_transform %}
+  {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">prev</a>
+    </li>
+    {% endif %}
+    <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }} </span>
+    </li>
+    {% if page_obj.has_next %}
+    <a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+</head>
 {% endblock %}
