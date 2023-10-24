@@ -4,8 +4,6 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from theme_pixel.forms import UserLoginForm
-
 from service.forms import CooksCreationForm, DishForm
 from service.models import Dish, Cook, DishType, Ingredient
 from .forms import (

@@ -23,7 +23,6 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("service.urls", namespace="service")),
-    path("", include("service.urls", namespace="service2")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
     path("registration/", include("django.contrib.auth.urls")),
