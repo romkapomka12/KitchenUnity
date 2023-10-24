@@ -1,0 +1,51 @@
+{% extends "layouts\base.html" %}
+
+{% block content %}
+  <h1>Dish Type:<a href="{% url 'service:dish_type_create' %}" style="float: right" class="btn btn-primary link-to-page"
+                   style="float: right">Add new dish type</a></h1></h1>
+
+  {% if dish_type_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+      </tr>
+      <tr>
+        {% for dish_type in dish_type_list %}
+          <td>
+            {{ dish_type.id }}
+          </td>
+          <td>
+            {{ dish_type.name }}
+          </td>
+          <td>
+            <a href="{% url 'service:dish_type_update' pk=dish_type.id %}">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'service:dish_type_delete' pk=dish_type.id %} ">Delete</a>
+          </td>
+          </tr>
+        {% endfor %}
+    </table>
+  {% else %}
+    <p> Thera are no dish type</p>
+  {% endif %}
+{% load query_transform %}
+  {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">prev</a>
+    </li>
+    {% endif %}
+    <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }} </span>
+    </li>
+    {% if page_obj.has_next %}
+    <a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+
+{% endblock %}

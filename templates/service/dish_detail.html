@@ -1,0 +1,21 @@
+{% extends "layouts\base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>Name of the dish: {{ dish.name }}</h1>
+  <p><strong>Dish type: </strong>{{ dish.dish_type.name }}</p>
+  <p><strong>Description: </strong>{{ dish.description }}</p>
+  <p><strong>Ingredients: </strong>
+    {% for ingredient in dish.ingredients.all %}</p>
+      <hr>
+      <p class="text-muted">{{ ingredient.id }}</p>
+      <p> {{ ingredient.name }} - {{ ingredient.quantity }} {{ ingredient.unit }}  </p>
+    {% endfor %}
+  <p><strong>Cooks: </strong>
+    {% for cook in dish.cooks.all %}</p>
+      <hr>
+      <p class="text-muted">{{ cook.id }}</p>
+      <p> {{ cook.first_name }} {{ cook.last_name }}</p>
+    {% empty %}
+      <p>No cooks!</p>
+    {% endfor %}
+{% endblock %}
