@@ -8,8 +8,6 @@ Django==4.1
 django-admin-gradient==1.0.2
 django-crispy-forms==2.0
 django-debug-toolbar==4.2.0
-django-theme-pixel==1.0.3
-django-theme-soft-design @ git+https://github.com/app-generator/django-theme-soft-design.git@59f8bd102e7a951bcffd518f2543bf8d14146a1f
 environ==1.0
 execnet==1.9.0
 flake8==5.0.4
