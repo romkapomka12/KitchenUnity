@@ -17,7 +17,7 @@ flake8-variables-names==0.0.5
 gunicorn==21.2.0
 iniconfig==1.1.1
 mccabe==0.7.0
-msvc-runtime==14.34.31931
+msvc-runtime==14.29.30133
 packaging==21.3
 pep8-naming==0.13.2
 pluggy==1.0.0
