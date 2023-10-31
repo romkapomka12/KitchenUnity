@@ -1,9 +1,10 @@
 from django.test import TestCase
 
-from service.forms import (DishSearchForm,
-                           CooksCreationForm,
-                           CooksSearchForm,
-                           )
+from service.forms import (
+    DishSearchForm,
+    CooksCreationForm,
+    CooksSearchForm,
+)
 
 
 class CooksCreationFormTests(TestCase):
